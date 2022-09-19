@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import { productData } from './Components/Data';
+import ProductsTable from './Components/ProductsTable';
+import SearchBar from './Components/SearchBar';
 
 function App() {
+  const [data, setData] = useState( productData );
+  const [search, setSearch] = useState( "" );
+  function handleSearcgChange( e ) {
+    setSearch( e.target.value.toUpperCase());
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar search={search} handleChange={handleSearcgChange} />
+      <ProductsTable id="tables" products={data} search={ search} />
     </div>
   );
 }
